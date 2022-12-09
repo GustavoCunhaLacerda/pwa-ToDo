@@ -1,35 +1,21 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import {
   KeyboardAvoidingView,
   StyleSheet,
   Text,
   View,
-  TextInput,
   TouchableOpacity,
-  Keyboard,
   ScrollView,
 } from "react-native";
-import Task from "../../components/Task";
+import Reminder from "../components/Reminder";
+import { TasksContext } from "../contexts/ReminderContext";
 
 interface MainProps {
   navigation: any;
 }
 
 export default function Main({ navigation }: MainProps) {
-  const [task, setTask] = useState<any>();
-  const [taskItems, setTaskItems] = useState<any>([]);
-
-  const handleAddTask = () => {
-    Keyboard.dismiss();
-    setTaskItems([...taskItems, task]);
-    setTask(null);
-  };
-
-  const completeTask = (index: any) => {
-    let itemsCopy = [...taskItems];
-    itemsCopy.splice(index, 1);
-    setTaskItems(itemsCopy);
-  };
+  const { reminderItems, completeReminder } = useContext<any>(TasksContext);
 
   return (
     <View style={styles.container}>
@@ -40,18 +26,15 @@ export default function Main({ navigation }: MainProps) {
         }}
         keyboardShouldPersistTaps="handled"
       >
-        {/* Today's Tasks */}
-        <View style={styles.tasksWrapper}>
-          <Text style={styles.sectionTitle}>Today's tasks</Text>
+        <View style={styles.remindersWrapper}>
           <View style={styles.items}>
-            {/* This is where the tasks will go! */}
-            {taskItems.map((item: any, index: any) => {
+            {reminderItems.map((item: any, index: any) => {
               return (
                 <TouchableOpacity
                   key={index}
-                  onPress={() => completeTask(index)}
+                  onPress={() => completeReminder(index)}
                 >
-                  <Task text={item} />
+                  <Reminder text={item.text} dueDate={item.dueDate} />
                 </TouchableOpacity>
               );
             })}
@@ -59,8 +42,11 @@ export default function Main({ navigation }: MainProps) {
         </View>
       </ScrollView>
 
-      <KeyboardAvoidingView behavior={"height"} style={styles.writeTaskWrapper}>
-        <TouchableOpacity onPress={() => navigation.navigate("AddToDo")}>
+      <KeyboardAvoidingView
+        behavior={"height"}
+        style={styles.writeReminderWrapper}
+      >
+        <TouchableOpacity onPress={() => navigation.navigate("AddReminder")}>
           <View style={styles.addWrapper}>
             <Text style={styles.addText}>+</Text>
           </View>
@@ -75,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#E8EAED",
   },
-  tasksWrapper: {
+  remindersWrapper: {
     paddingTop: 80,
     paddingHorizontal: 20,
   },
@@ -86,7 +72,7 @@ const styles = StyleSheet.create({
   items: {
     marginTop: 30,
   },
-  writeTaskWrapper: {
+  writeReminderWrapper: {
     position: "absolute",
     bottom: 60,
     width: "100%",
