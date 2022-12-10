@@ -8,20 +8,32 @@
     "web": "expo start --web"
   },
   "dependencies": {
+<<<<<<< HEAD
+=======
+    "@babel/preset-env": "^7.1.6",
+    "@expo/webpack-config": "^0.17.2",
+>>>>>>> c8cbdb87f0ec23939f669b964a7104f188be6642
     "@react-native-community/datetimepicker": "6.5.2",
     "@react-navigation/native": "^6.1.0",
     "@react-navigation/stack": "^6.3.8",
+    "babel-preset-expo": "^9.2.2",
     "expo": "~47.0.8",
     "expo-splash-screen": "~0.17.5",
     "expo-status-bar": "~1.4.2",
+    "install": "^0.13.0",
     "moment": "^2.29.4",
     "react": "18.1.0",
     "react-dom": "^18.1.0",
     "react-native": "0.70.5",
     "react-native-gesture-handler": "~2.8.0",
+<<<<<<< HEAD
     "react-native-reanimated": "~2.12.0",
     "react-native-safe-area-context": "4.4.1",
     "react-native-screens": "~3.18.0",
+=======
+    "react-native-safe-area-context": "^4.4.1",
+    "react-native-screens": ">= 3.0.0",
+>>>>>>> c8cbdb87f0ec23939f669b964a7104f188be6642
     "react-native-web": "~0.18.9"
   },
   "devDependencies": {
